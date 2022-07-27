@@ -13,53 +13,62 @@ const imageAddress =
 
 const App = () => {
   const [logoText, setLogoText] = useState("");
-  const [newLogoText, setNewLogoText] = useState("Logo")
-  const [showAboutMe, setShowAboutMe] = useState(true);
-  const [showCharacters, setShowCharacters] = useState(false);
-  const [showTodo, setShowTodo] = useState(false);
-  const [showContact, setShowContact] = useState(false);
+  const [newLogoText, setNewLogoText] = useState("Logo");
+  // const [showAboutMe, setShowAboutMe] = useState(true);
+  // const [showCharacters, setShowCharacters] = useState(false);
+  // const [showTodo, setShowTodo] = useState(false);
+  // const [showContact, setShowContact] = useState(false);
 
-  const displayAboutMe = () => {
-    setShowAboutMe(true);
-    setShowCharacters(false);
-    setShowTodo(false);
-    setShowContact(false);
+  const [shotContent, setShowContent] = useState("AboutMe");
+
+  const displayPage = (page) => {
+    setShowContent(page);
   };
 
-  const displayCharacters = () => {
-    setShowCharacters(true);
-    setShowAboutMe(false);
-    setShowTodo(false);
-    setShowContact(false);
-  };
+  // const displayAboutMe = () => {
+  //   setShowAboutMe(true);
+  //   setShowCharacters(false);
+  //   setShowTodo(false);
+  //   setShowContact(false);
+  // };
 
-  const displayTodo = () => {
-    setShowTodo(true);
-    setShowCharacters(false);
-    setShowAboutMe(false);
-    setShowContact(false);
-  };
+  // const displayCharacters = () => {
+  //   setShowCharacters(true);
+  //   setShowAboutMe(false);
+  //   setShowTodo(false);
+  //   setShowContact(false);
+  // };
 
-  const displayContact = () => {
-    setShowContact(true);
-    setShowCharacters(false);
-    setShowTodo(false);
-    setShowAboutMe(false);
-  };
+  // const displayTodo = () => {
+  //   setShowTodo(true);
+  //   setShowCharacters(false);
+  //   setShowAboutMe(false);
+  //   setShowContact(false);
+  // };
+
+  // const displayContact = () => {
+  //   setShowContact(true);
+  //   setShowCharacters(false);
+  //   setShowTodo(false);
+  //   setShowAboutMe(false);
+  // };
 
   return (
     <div className="App">
       <div className="Navbar">
         <div>{newLogoText}</div>
         <div className="Buttons">
-          <Button onClick={displayAboutMe} text={"O mnie"}/>
-          <Button onClick={displayCharacters} text={"Lista postaci"} />
-          <Button onClick={displayTodo} text={"Todo"} />
-          <Button onClick={displayContact} text={"Kontakt"} />
+          <Button onClick={() => displayPage("AboutMe")} text={"O mnie"} />
+          <Button
+            onClick={() => displayPage("Characters")}
+            text={"Lista postaci"}
+          />
+          <Button onClick={() => displayPage("Todo")} text={"Todo"} />
+          <Button onClick={() => displayPage("Contact")} text={"Kontakt"} />
         </div>
       </div>
       <div className="Content">
-        {showAboutMe && (
+        {shotContent === "AboutMe" && (
           <AboutMe
             src={imageAddress}
             alt={"random-photo"}
@@ -71,15 +80,14 @@ const App = () => {
             setNewLogoText={setNewLogoText}
           />
         )}
-        {showCharacters && <Characters />}
-        {showTodo && <Todo 
-        newLogoText={newLogoText}
-        setNewLogoText={setNewLogoText}
-        />}
-        {showContact && <Contact />}
+        {shotContent === "Characters" && <Characters />}
+        {shotContent === "Todo" && (
+          <Todo newLogoText={newLogoText} setNewLogoText={setNewLogoText} />
+        )}
+        {shotContent === "Contact" && <Contact />}
       </div>
     </div>
   );
-}
+};
 
 export default App;
